@@ -37,7 +37,7 @@ var favColour = "blue";
 const dob = "1978-12-22";
 
 // Step 9: Create a variable with the symbol name
-// 'favNum' and assign it the string value of your
+// 'favNum' and assign it the number value of your
 // favourite number. Give it only global visibility
 // and make it mutable.
 favNum = 256;
