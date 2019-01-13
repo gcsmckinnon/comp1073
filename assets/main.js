@@ -28,8 +28,15 @@ SCM.prototype.evaluate = function (block, selector = false) {
 
 // Shaun data type eval methods
 SCM.prototype.isType = function (varName, variable, type) {
-  if (typeof variable !== type)
-    throw {message: `${varName} is not of type ${type}. It is of type ${typeof variable}`};
+  if (type === 'array' && variable.constructor.name === "Array")
+    return
+  
+  if (typeof variable !== type) {
+    if (variable.constructor.name === "Array")
+      throw {message: `${varName} is not of type ${type}. It is of type ${variable.constructor.name.toLowerCase()}`};
+    else
+      throw {message: `${varName} is not of type ${type}. It is of type ${typeof variable}.`};
+  }
 }
 
 SCM.prototype.isString = function (varName, variable) {
@@ -60,11 +67,31 @@ SCM.prototype.isFunction = function (varName, variable) {
 SCM.prototype.isBlockScope = function (varName, variable) {
   if (window[varName] !== undefined)
     throw {message: `${varName} is not block scoped.`};
+    return false
+  return true
 }
 
 SCM.prototype.isNotBlockScope = function (varName, variable) {
   if (window[varName] === undefined)
     throw {message: `${varName} is block scoped.`};
+    return false
+  return true
+}
+
+// Array things
+SCM.prototype.correctLength = function (varName, variable, length) {
+  if (variable.length > length)
+    throw {message: `${varName} is too long. It should be a length of ${length}`}
+
+  if (variable.length < length)
+    throw {message: `${varName} is too short. It should be a length of ${length}`}
+
+  return true
+}
+
+SCM.prototype.test = function (condition, success, error, selector) {
+  if (condition) this.selectAndServe(selector, success);
+  if (!condition) throw {message: error}
 }
 
 const scm = new SCM;

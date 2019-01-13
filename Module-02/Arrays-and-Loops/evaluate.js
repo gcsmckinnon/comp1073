@@ -1,198 +1,156 @@
 // Step 1 Test
 scm.evaluate(function () {
-  scm.selectAndServe('#step1', `greeting = "${greeting}";`);
+  scm.isBlockScope('myFavFoods', myFavFoods);
+
+  if (scm.correctLength('myFavFoods', myFavFoods, 3))
+    scm.selectAndServe('#step1', 'let myFavFoods = ["Cheese", "Bacon", "Cheese Cake"];');
 }, '#step1');
 
 // Step 2 Test
 scm.evaluate(function () {
-  scm.isString('fullName', fullName);
-  scm.selectAndServe('#step2', `fullName = "${fullName}";`);
+  scm.isBlockScope('mffFirst', mffFirst);
+
+  scm.test((mffFirst === myFavFoods[0]), 'let mffFirst = myFavFoods[0];', 'You have chosen the incorrect index.', '#step2');
 }, '#step2');
 
 // Step 3 Test
 scm.evaluate(function () {
-  scm.isNumber('age', age);
-  scm.selectAndServe('#step3', `age = ${age};`);
+  scm.isBlockScope('mffLast', mffLast);
+
+  scm.test((mffLast === myFavFoods[2]), 'let mffLast = myFavFoods[2];', 'You have chosen the incorrect index.', '#step3');
 }, '#step3');
 
 // Step 4 Test
+const step4Test = "The falcon flies south for the winter.";
+console.log(step4Test);
 scm.evaluate(function () {
-  scm.isNumber('hourlyIncome', hourlyIncome);
-  scm.selectAndServe('#step4', `hourlyIncome = ${hourlyIncome};`);
+  scm.isBlockScope('theConsoleMessage', theConsoleMessage);
+  scm.isString('theConsoleMessage', theConsoleMessage);
+
+  scm.test((theConsoleMessage === step4Test), `let theConsoleMessage = "${step4Test}";`, 'Your value is not the same as the output.', '#step4');
 }, '#step4');
 
 // Step 5 Test
+const mySecretVar = 256;
 scm.evaluate(function () {
-  scm.isBoolean('married', married);
-  scm.selectAndServe('#step5', `married = ${married};`);
+  scm.isBlockScope('mySecretVarWas', mySecretVarWas);
+  scm.isNumber('mySecretVarWas', mySecretVarWas);
+
+  scm.test((mySecretVarWas === mySecretVar), `let mySecretVarWas = ${mySecretVar};`, 'Incorrect value.', '#step5');
 }, '#step5');
 
-// Step 6 Test
+// Step 5 Test
+const mySecretArr = ['JavaScript', 'is', 'so', 'much', 'fun'];
 scm.evaluate(function () {
-  scm.isString('favFood', favFood);
-  scm.isBlockScope('favFood', favFood);
+  scm.isBlockScope('numOfSecretElements', numOfSecretElements);
+  scm.isNumber('numOfSecretElements', numOfSecretElements);
 
-  // Check if it's immutable
-  let temp = favFood;
-  try {
-    favFood = null;
-  } catch (err){}
-
-  if (favFood !== null)
-    throw {message: `favFood is immutable.`};
-  else
-    scm.selectAndServe('#step6', `let favFood = "${temp}";`);
+  scm.test((numOfSecretElements === mySecretArr.length), `let numOfSecretElements = ${mySecretArr.length};`, 'Incorrect value.', '#step6');
 }, '#step6');
 
 // Step 7 Test
 scm.evaluate(function () {
-  let temp = favColour;
+  scm.isNumber('davesSciGr', davesSciGr)
+  scm.isBlockScope('davesSciGr', davesSciGr);
 
-  scm.isNotBlockScope('favColour', favColour);
-
-  try {
-    favColour = null;
-  } catch (err){}
-
-  if (favColour !== null)
-    throw {message: `favColour is not mutable.`};
-  else
-    scm.selectAndServe('#step7', `var favColour = "${temp}";`);
+  scm.test((davesSciGr === students[4][0][1]), `let davesSciGr = ${davesSciGr};`, `Your value is incorrect. it should be ${students[4][0][1]}`, '#step7')
 }, '#step7');
 
 // Step 8 Test
 scm.evaluate(function () {
-  scm.isString('dob', dob);
-  scm.isBlockScope('dob', dob);
+  scm.isString('bobsLastName', bobsLastName)
+  scm.isBlockScope('bobsLastName', bobsLastName);
 
-  // Check if it's immutable
-  try {
-    dob = null;
-  } catch (err){}
-
-  if (dob === null)
-    throw {message: `dob is mutable.`};
-  else
-    scm.selectAndServe('#step8', `const dob = "${dob}";`);
+  scm.test((bobsLastName === students[1][1]), `let bobsLastName = ${bobsLastName};`, `Your value is incorrect. it should be ${students[1][1]}`, '#step8')
 }, '#step8');
 
 // Step 9 Test
 scm.evaluate(function () {
-  let temp = favNum;
+  scm.isNumber('bobsGeoGr', bobsGeoGr)
+  scm.isBlockScope('bobsGeoGr', bobsGeoGr);
 
-  scm.isNumber('favNum', favNum);
-  scm.isNotBlockScope('favNum', favNum);
-
-  // Check if it's immutable
-  try {
-    favNum = null;
-  } catch (err){}
-
-  try {
-    favNum = null;
-  } catch (err){}
-
-  if (favNum !== null)
-    throw {message: `favNum is not mutable.`};
-  else
-    scm.selectAndServe('#step9', `favNum = ${temp};`);
+  scm.test((bobsGeoGr === students[4][1][2]), `let bobsGeoGr = ${bobsGeoGr};`, `Your value is incorrect. it should be ${students[4][1][2]}`, '#step9')
 }, '#step9');
 
 // Step 10 Test
 scm.evaluate(function () {
-  scm.isBoolean('q', q);
-  scm.isBlockScope('q', q);
+  scm.isNumber('numOfStudents', numOfStudents);
+  scm.isBlockScope('numOfStudents', numOfStudents);
 
-  if (q !== true)
-    throw {message: "There is an error with your comparison."}
-  else
-    scm.selectAndServe('#step10', `let q = 5 == "5";`);
+  scm.test((numOfStudents === students.length), `let numOfStudents = ${numOfStudents};`, `Your value is incorrect. It should be ${students.length}`, '#step10')
 }, '#step10');
 
 // Step 11 Test
 scm.evaluate(function () {
-  scm.isBoolean('w', w);
-  scm.isBlockScope('w', w);
+  scm.isNumber('numOfStudentsFirstNames', numOfStudentsFirstNames);
+  scm.isBlockScope('numOfStudentsFirstNames', numOfStudentsFirstNames);
 
-  if (w !== true)
-    throw {message: "There is an error with your comparison."}
-  else
-    scm.selectAndServe('#step11', `let w = 7 > 3;`);
+  scm.test((numOfStudentsFirstNames === students[2].length), `let numOfStudentsFirstNames = ${numOfStudentsFirstNames};`, `Your value is incorrect. It should be ${students[2].length}`, '#step11')
 }, '#step11');
 
 // Step 12 Test
 scm.evaluate(function () {
-  scm.isBoolean('e', e);
-  scm.isBlockScope('e', e);
+  scm.isNumber('numOfStudentsCourses', numOfStudentsCourses);
+  scm.isBlockScope('numOfStudentsCourses', numOfStudentsCourses);
 
-  if (e !== true)
-    throw {message: "There is an error with your comparison."}
-  else
-    scm.selectAndServe('#step12', `let e = "Shaun" != "Bob";`);
+  scm.test((numOfStudentsCourses === students[3][0].length), `let numOfStudentsCourses = ${numOfStudentsCourses};`, `Your value is incorrect. It should be ${students[3][0].length}`, '#step12')
 }, '#step12');
 
-// Step 13 Test
+// Steps 13 to 17
 scm.evaluate(function () {
-  scm.isBoolean('r', r);
-  scm.isBlockScope('r', r);
+  scm.isArray('initArr', initArr);
+  scm.isBlockScope('initArr', initArr);
 
-  if (r !== false)
-    throw {message: "There is an error with your comparison."}
-  else
-    scm.selectAndServe('#step13', `let r = 5 === "5";`);
-}, '#step13');
+  if (!scm.correctLength('initArr', initArr, 7))
+    throw {message: `Your array length is incorrect. It is ${initArr.length} when it should be 7.`}
 
-// Step 14 Test
+  let val = initArr.reduce(function (a, b) { return a+b });
+  scm.test((val === 279), `All Good!`, `Your value ${val} is incorrect. The correct total should be 279.`, '#step13to17testResult');
+
+  if (val == 279) {
+    scm.selectAndServe('#step13', 'initArr.push(4, 5, 6);');
+    scm.selectAndServe('#step14', 'initArr.unshift(7, 8);');
+    scm.selectAndServe('#step15', 'initArr.pop();');
+    scm.selectAndServe('#step16', 'initArr.shift();');
+    scm.selectAndServe('#step17', 'initArr.splice(3, 0, 256);');
+  }
+}, '#step13to17testResult');
+
+// Step 18
 scm.evaluate(function () {
-  scm.isBoolean('t', t);
-  scm.isBlockScope('t', t);
+  scm.isNumber('sentinel', sentinel);
+  scm.isBlockScope('sentinel', sentinel);
 
-  if (t !== true)
-    throw {message: "There is an error with your comparison."}
-  else
-    scm.selectAndServe('#step14', `let t = expa1 && expa2;`);
-}, '#step14');
-
-// Step 15 Test
-scm.evaluate(function () {
-  scm.isBoolean('y', y);
-  scm.isBlockScope('y', y);
-
-  if (y !== true)
-    throw {message: "There is an error with your comparison."}
-  else
-    scm.selectAndServe('#step15', `let y = expb1 || expb2;`);
-}, '#step15');
-
-// Step 16 Test
-scm.evaluate(function () {
-  scm.isNumber('ourTestNum', ourTestNum);
-  scm.isBlockScope('ourTestNum', ourTestNum);
-
-  if (ourTestNum === 10 || ourTestNum === 20 || ourTestNum !== 15)
-    throw {message: `Check your comparison operator. ourTestNum should not be equal to ${ourTestNum}`};
-  else
-    document.querySelector('#step16 > .hide').classList.remove('hide');
-}, '#step16');
-
-// Step 17 Test
-scm.evaluate(function () {
-  scm.isNumber('res', res);
-  scm.isBlockScope('res', res);
-
-  if (res === 10 || res === 20 || res === 30 || res !== 15)
-    throw {message: `Check your cases. res should not be equal to ${res}`};
-  else
-    document.querySelector('#step17 > .hide').classList.remove('hide');
-}, '#step17');
-
-// Step 18 Test
-scm.evaluate(function () {
-  scm.isString('lightSwitch', lightSwitch);
-  scm.isBlockScope('lightSwitch', lightSwitch);
-
-  if (lightSwitch != 'off')
-    throw {message: `You lightSwitch needs to equal 'off' not ${lightSwitch}. Check your letter case.`};
-  else
-    scm.selectAndServe('#step18', `lightSwitch = (lightSwitch === 'on') ? 'off' : 'on';`);
+  if (sentinel != 8 && sentinel != 10)
+    throw {message: `Sentinel should not be equal to ${sentinel}. It should equal 8.`};
 }, '#step18');
+
+// Step 19
+scm.evaluate(function () {
+  scm.isNumber('sentinel', sentinel);
+  scm.isBlockScope('sentinel', sentinel);
+
+  if (sentinel != 10)
+    throw {message: `Sentinel should not be equal to ${sentinel}. It should equal 10.`};
+}, '#step19');
+
+// Step 20
+scm.evaluate(function () {
+  scm.isNumber('forLoopValue', forLoopValue);
+  scm.isBlockScope('forLoopValue', forLoopValue);
+
+  if (forLoopValue != 55)
+    throw {message: `forLoopValue should not be equal to ${forLoopValue}. It should equal 55.`};
+}, '#step20');
+
+// Step 21
+scm.evaluate(function () {
+  scm.isNumber('forOfLoopValue', forOfLoopValue);
+  scm.isBlockScope('forOfLoopValue', forOfLoopValue);
+
+  scm.isArray('exArr', exArr);
+  scm.isBlockScope('exArr', exArr);
+
+  if (forOfLoopValue != 55)
+    throw {message: `forOfLoopValue should not be equal to ${forOfLoopValue}. It should equal 55.`};
+}, '#step21');
