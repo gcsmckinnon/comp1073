@@ -46,22 +46,22 @@ let students = [
 let davesSciGr = students[4][0][1];
 
 // Step 8: Access and store Bob's last name.
-let bobsLastName = students[1][1];
+let bobsLastName = students[2][1];
 
 // Step 9: Access and store Bob's geography grade.
 let bobsGeoGr = students[4][1][2];
 
 // Step 10: Using .length, how many elements does the
 // 'students' array have?
-let numOfStudents = 5;
+let numOfStudents = students.length;
 
 // Step 11: Using .length, how many elements does the
 // 'students' first names array have?
-let numOfStudentsFirstNames = 3;
+let numOfStudentsFirstNames = students[1].length;
 
 // Step 12: Using .length, how many elements does the
 // 'students' course list array have?
-let numOfStudentsCourses = 3;
+let numOfStudentsCourses = students[3].length;
 
 
 // For steps 13 to 17

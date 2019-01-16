@@ -3,7 +3,7 @@ scm.evaluate(function () {
   scm.isBlockScope('myFavFoods', myFavFoods);
 
   if (scm.correctLength('myFavFoods', myFavFoods, 3))
-    scm.selectAndServe('#step1', 'let myFavFoods = ["Cheese", "Bacon", "Cheese Cake"];');
+    scm.selectAndServe('#step1', `let myFavFoods = ["${myFavFoods[0]}", "${myFavFoods[1]}", "${myFavFoods[2]}"];`);
 }, '#step1');
 
 // Step 2 Test
@@ -61,7 +61,7 @@ scm.evaluate(function () {
   scm.isString('bobsLastName', bobsLastName)
   scm.isBlockScope('bobsLastName', bobsLastName);
 
-  scm.test((bobsLastName === students[1][1]), `let bobsLastName = ${bobsLastName};`, `Your value is incorrect. it should be ${students[1][1]}`, '#step8')
+  scm.test((bobsLastName === students[2][1]), `let bobsLastName = "${bobsLastName}";`, `Your value is incorrect. it should be ${students[2][1]}`, '#step8')
 }, '#step8');
 
 // Step 9 Test
